@@ -39,6 +39,7 @@ bool ArrayQueue::enqueue(T e)
 
 	Array[back] = e;
 	back = (back + 1) % capacity;
+	++length;
 	return true;
 }
 
@@ -48,6 +49,7 @@ T ArrayQueue::dequeue(T e)
 
 	T toReturn = Array[front];
 	front = (front + 1) % capacity;
+	--length;
 	return toReturn;
 }
 
