@@ -10,7 +10,7 @@ int arrayQueueTest()
 	ArrayQueue<int> line(capacity);
 	bool result;
 
-	for (int i = 0; i < 10; ++i) line.enqueue(i * 5);
+	for (int i = 0; i < 10; ++i) line.enqueue( (i + 1) * 5);
 	cout << "Added 10 elements to line." << endl;
 
 	cout << "Adding 1 more, which should cause it to exceed capacity." << endl;
@@ -32,6 +32,13 @@ int arrayQueueTest()
 	cout << "Empty: " << line.isEmpty() << endl;
 	cout << "Peeking: " << line.peek() << endl;
 	cout << "Outputting: "; line.output();
+
+	int numNewQueues = 6;
+	for (int i = 0; i < numNewQueues; ++i) line.enqueue( (i + 1) * 7);
+	cout << "Did " << numNewQueues << " more enqueues." << endl;
+	cout << "Empty: " << line.isEmpty() << endl;
+	cout << "Peeking: " << line.peek() << endl;
+	cout << "Outputting: "; line.output();	
 
 	return 0;
 }
