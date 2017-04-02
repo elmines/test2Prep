@@ -1,4 +1,6 @@
-#include "Queue.cpp"
+#include "Queue.h"
+#include<iostream>
+using namespace std;
 
 template<typename T>
 class ArrayQueue : public Queue<T>
@@ -9,6 +11,7 @@ class ArrayQueue : public Queue<T>
 		bool enqueue(T e);
 		T dequeue();
 		T peek();
+		void output();
 		bool isEmpty();
 
 	private:
@@ -22,16 +25,14 @@ ArrayQueue<T>::ArrayQueue(int capacity)
 	this->length = 0;
 	this->capacity = capacity;
 	this->Array = new T[capacity];
-	this->front = 0; //FIXME: Check that index
-	this->back = 0; //FIXME: Check that index
+	this->front = 0;
+	this->back = 0;
 }
 
 template<typename T>
 ArrayQueue<T>::~ArrayQueue()
 {
-//FIXME: Need to delete and end from the proper spots
-	for (int i = 0; i < length; ++i) delete Array[i];
-
+	cout << "Destructor called." << endl;
 	delete[] Array;
 }
 
@@ -43,6 +44,7 @@ bool ArrayQueue<T>::enqueue(T e)
 	Array[back] = e;
 	back = (back + 1) % capacity;
 	++length;
+//cerr << "Finished enqueue(): back = " << back << ", length = " << length << endl;
 	return true;
 }
 
@@ -62,6 +64,25 @@ T ArrayQueue<T>::peek()
 {
 	if (length == 0) return 0;
 	return Array[front];
+}
+
+template<typename T>
+void ArrayQueue<T>::output()
+{
+	if (length == 0)
+	{
+		cout << endl;
+		return;
+	}
+
+	int i = 0;
+	for ( ; i < length - 1; ++i)
+	{
+
+		cout << Array[ (front + i) % capacity ] << ", ";
+
+	}
+	cout << Array[ (front + i) % capacity ] << endl;
 }
 
 template<typename T>

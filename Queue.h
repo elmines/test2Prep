@@ -13,5 +13,6 @@ class Queue
 		virtual bool enqueue(T e) = 0;
 		virtual T dequeue() = 0;
 		virtual T peek() = 0;
+		virtual void output() = 0;
 		virtual bool isEmpty() = 0;
 };
