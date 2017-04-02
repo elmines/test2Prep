@@ -43,7 +43,21 @@ int arrayQueueTest()
 	return 0;
 }
 
+int destructorTest()
+{
+	string input;
+	int queueSize = 10000000;
+	int numQueues = 10000000;
+
+	for (int i = 0; i < numQueues; ++i) ArrayQueue<int> line(queueSize);
+
+	cout << numQueues << " queues allocated and destroyed. Check your Task Manager to see if there's a memory leak." << endl;
+	cout << "Press enter to continue. . .";
+	getline(cin, input);
+	return 0;
+}
+
 int main()
 {
-	return arrayQueueTest();
+	return destructorTest();
 }

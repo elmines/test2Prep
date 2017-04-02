@@ -32,7 +32,6 @@ ArrayQueue<T>::ArrayQueue(int capacity)
 template<typename T>
 ArrayQueue<T>::~ArrayQueue()
 {
-	cout << "Destructor called." << endl;
 	delete[] Array;
 }
 
