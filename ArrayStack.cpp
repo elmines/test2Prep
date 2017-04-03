@@ -30,6 +30,7 @@ ArrayStack<T>::ArrayStack(int capacity)
 template<typename T>
 ArrayStack<T>::~ArrayStack()
 {
+	//cout << "Called destructor." << endl;
 	delete[] Array;
 }
 
