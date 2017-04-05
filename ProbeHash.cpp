@@ -2,15 +2,16 @@
 using namespace std;
 
 template<typename T>
-class ProbeHash<T>
+class ProbeHash
 {
 	public:
 		void put(T e);
-		void remove(T e);
+		bool remove(T e);
 		bool contains(T e);
 		bool isEmpty();
+		void output();
 	
-		ProbeHash(int capacity, (int) (*hash)(T), (int) (*step)(int) );
+		ProbeHash(int capacity, int (*hash)(T), int (*step)(int) );
 		~ProbeHash();
 
 	private:
@@ -18,12 +19,12 @@ class ProbeHash<T>
 		T* Array;
 		bool *Empty;
 		bool *usedBefore; //Used to identify slots that have had elements in them at some point
-		(int) (*hash)(T); //Hash function passed in by the user
-		(int) (*step)(int); //Step function passed in by the user (could be linear, quadratic, a double hash, etc.)
+		int (*hash)(T); //Hash function passed in by the user
+		int (*step)(int); //Step function passed in by the user (could be linear, quadratic, a double hash, etc.)
 };
 
 template<typename T>
-ProbeHash<T>::ProbeHash(int capacity, (int) (*hash)(T), (int) (*step)(int) )
+ProbeHash<T>::ProbeHash(int capacity, int (*hash)(T), int (*step)(int) )
 {
 	this->capacity = capacity;
 	this->size = 0;
@@ -35,7 +36,7 @@ ProbeHash<T>::ProbeHash(int capacity, (int) (*hash)(T), (int) (*step)(int) )
 
 	for (int i = 0; i < capacity; ++i){
 		Empty[i] = true;
-		userBefore[i] = false;
+		usedBefore[i] = false;
 	}
 }
 
@@ -43,7 +44,7 @@ template<typename T>
 ProbeHash<T>::~ProbeHash()
 {
 	delete[] Array;
-	delete[] userBefore;
+	delete[] usedBefore;
 }
 
 
@@ -111,13 +112,14 @@ bool ProbeHash<T>::contains(T e)
 }
 
 template<typename T>
-bool ProbeHash<T>::isEmpty(T e){return size == 0;}
+bool ProbeHash<T>::isEmpty(){return size == 0;}
 
 template<typename T>
 void ProbeHash<T>::output()
 {
 	cout << '[';
-	for (int i = 0; i < capacity - 1; ++i)
+	int i;
+	for (i = 0; i < capacity - 1; ++i)
 	{
 		if (Empty[i]) cout << "EMPTY, ";
 		else          cout << Array[i] << ", ";
