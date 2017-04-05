@@ -29,8 +29,8 @@ ProbeHash<T>::ProbeHash(int capacity, int (*hash)(T), int (*step)(int) )
 	this->capacity = capacity;
 	this->size = 0;
 	this->Array = new T[capacity];
+	this->Empty = new bool[capacity];
 	this->usedBefore = new bool[capacity];
-
 	this->hash = hash;
 	this->step = step;
 
@@ -44,9 +44,9 @@ template<typename T>
 ProbeHash<T>::~ProbeHash()
 {
 	delete[] Array;
+	delete[] Empty;
 	delete[] usedBefore;
 }
-
 
 template<typename T>
 void ProbeHash<T>::put(T e)
@@ -81,6 +81,7 @@ bool ProbeHash<T>::remove(T e)
 	{
 		index = (startingIndex + step(i)) % capacity;
 		++i;
+cerr << "i = " << i << endl;
 	}
 	
 	if (e == Array[index]) 
@@ -101,7 +102,7 @@ bool ProbeHash<T>::contains(T e)
 	int index = startingIndex;
 	int i = 1;
 	
-	while ( usedBefore[index]  )
+	while ( usedBefore[index] && (e != Array[index]) )
 	{
 		index = (startingIndex + step(i)) % capacity;
 		++i;
