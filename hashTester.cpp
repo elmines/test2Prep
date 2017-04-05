@@ -108,7 +108,14 @@ int test2()
 	return 0;
 }
 
+int test3()
+{
+	ProbeHash<int> table(17, [](int i){return i % 17;}, &quadraticProbe);
+	intUI(table);
+	return 0;
+}
+
 int main()
 {
-	return test2();
+	return test3();
 }
